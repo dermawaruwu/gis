@@ -1,0 +1,98 @@
+<p>Pernahkah Anda membuat aplikasi GIS (Geographic Information System) atau aplikasi pemetaan&nbsp;berbasis web?&nbsp;</p>
+<p><br />Jika belum, mungkin Anda bisa memulai dengan memahami konsep GIS&nbsp;secara umum di situs <a href="http://www.esri.com/what-is-gis" target="_blank">ESRI</a>.</p>
+<p>Jika sudah, mungkin anda pernah mendengar library Javascript yang bernama <a href="http://leafletjs.com/" target="_blank">Leaflet</a>.</p>
+<p>&nbsp;</p>
+<p>Leaflet merupakan library yang dibuat oleh <a href="http://agafonkin.com/en/" target="_blank">Vladimir Agafonkin</a>&nbsp;dan beberapa kontributor lainnya yang&nbsp;dirilis pada 30 Juli 2012 dengan versi 0.4. Leaflet sampai sekarang juga masih terus dikembangkan. Pada saat tulisan ini dibuat, versi terakhir yang dirilis adalah 1.0 pada 27 September 2016.</p>
+<blockquote>
+ <p><span style="font-size: 14px;">Leaflet is the leading open-source JavaScript library for mobile-friendly interactive maps</span></p>
+</blockquote>
+<p>&nbsp;Leaflet bertujuan untuk membantu para developer yang ingin membuat aplikasi GIS yang interaktif dan bisa bekerja secara optimal pada perangkat-perangkat <em>desktop</em> maupun <em>mobile</em>.</p>
+<p>Leaflet juga menyediakan beberapa plugin seperti &nbsp;</p>
+<ul>
+ <li>Basemap Providers</li>
+ <li>Vector Tiles</li>
+ <li>Markers</li>
+ <li>Interactive Pan/Zoom</li>
+ <li>Geolocation</li>
+ <li>Search and Popups</li>
+ <li>Geocoding</li>
+ <li>dan lain-lain</li>
+</ul>
+<p>Selain itu, Leaflet juga memiliki dokumentasi yang lengkap tentang penggunaan, konfigurasi, event handling, dan masih banyak lagi hal lainnya yang akan kita pelajari pada bagian-bagian selanjutnya.</p>
+<p>Pada awal ini, ada beberapa hal yang harus disiapkan, yaitu</p>
+<ol>
+ <li>Web Server yang udah terinstall, anda bisa memakai XAMPP, LAMP, atau sejenisnya</li>
+ <li>Editor untuk membuat kode yang akan kita eksekusi&nbsp;</li>
+ <li>Browser yang akan digunakan untuk menampilkan peta</li>
+</ol>
+<p>Langkah-langkah yang dilakukan adalah:</p>
+<p>1. Silakan signup di <a href="https://www.mapbox.com/studio/signup/" target="_blank">MapBox</a></p>
+<p>2. Buat API access token MapBox di bagian Tokens atau mengklik <a href="https://www.mapbox.com/studio/account/tokens/" target="_blank">link ini</a></p>
+<p>3. Generate New Token</p>
+<p><img src="https://titikoma.net/po-content/uploads/1.PNG" alt="" width="720" height="404" /></p>
+<p>4. Masukkan nama token</p>
+<p><img src="https://titikoma.net/po-content/uploads/mapbox_(2).PNG" alt="" width="451" height="546" /></p>
+<p>5. Hasil dari generate token seperti berikut (yang ditandai merah maroon)</p>
+<p><img src="https://titikoma.net/po-content/uploads/mapbox_(3).PNG" alt="" width="710" height="420" /></p>
+<p>6. Buatlah sebuah file di folder yang bisa dikases untuk web (XAMPP biasanya di folder <code>htdocs</code>) bernama <code>gis.php</code></p>
+<p>&nbsp;</p>
+<pre class="line-numbers  language-php"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;	
+	&lt;title&gt;Belajar Leaflet&lt;/title&gt;
+
+	&lt;meta charset="utf-8" /&gt;
+	&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+
+	&lt;link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" /&gt;
+	&lt;script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"&gt;&lt;/script&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+
+	&lt;div id="peta" style="width: 600px; height: 400px;"&gt;&lt;/div&gt;
+	&lt;script src="app.js"&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>7.&nbsp;Buatlah sebuah file di tempat yang sama&nbsp;bernama <code>app.js.</code>&nbsp;Isikan MAPBOX_ACCESS_TOKEN dengan token yang didapat pada langkah 5&nbsp;</p>
+<pre class="line-numbers  language-javascript"><code>var mymap = L.map('peta').setView([-6.231, 106.865], 17);
+
+L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=MAPBOX_ACCESS_TOKEN', {
+    maxZoom: 18,
+    attribution: 'Map data &amp;copy; &lt;a href="http://openstreetmap.org"&gt;OpenStreetMap&lt;/a&gt; contributors, ' +
+        '&lt;a href="http://creativecommons.org/licenses/by-sa/2.0/"&gt;CC-BY-SA&lt;/a&gt;, ' +
+        'Imagery &copy; &lt;a href="http://mapbox.com"&gt;Mapbox&lt;/a&gt;',
+    id: 'mapbox.streets'
+}).addTo(mymap);</code></pre>
+<p>8. Silakan akses file <code>gis.php</code> menggunakan browser kesukaan anda. Di mesin saya, url yang saya akses adalah&nbsp;<a href="http://localhost/gis/gis.php">http://localhost/gis/gis.php</a>&nbsp;</p>
+<p>9. Hasilnya seperti berikut</p>
+<p><img src="https://titikoma.net/po-content/uploads/leaflet2.PNG" alt="" width="629" height="459" /></p>
+<p>10. Jika sudah terlihat seperti pada gambar di atas,&nbsp;berarti aplikasi awal sudah jalan</p>
+<p>&nbsp;</p>
+<p>Pada file <code>gis.php</code>, &nbsp;<code>&lt;link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" /&gt;</code> dan &nbsp;<code>&lt;script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"&gt;&lt;/script&gt;</code> merupakan 2 file yang diambil dari CDN memuat <code>css</code> dan <code>js</code> Leaflet yang akan digunakan untuk membuat peta.&nbsp;<code>&lt;div id="peta" style="width: 600px; height: 400px;"&gt;&lt;/div&gt;</code> merupakan tempat kita akan menempatkan peta. &nbsp;<code>&lt;script src="app.js"&gt;&lt;/script&gt;</code> &nbsp;memanggil <code>app.js</code>.</p>
+<p>&nbsp;</p>
+<p>Pada file <code>app.js</code>, &nbsp;</p>
+<p><code>var mymap = L.map('peta').setView([-6.231, 106.865], 17);</code></p>
+<p>menunjukkan inisialisasi peta&nbsp;bernama <code>mymap</code>&nbsp;pada <code>div</code> dengan <code>class="peta"</code>. <code>[-6.231, 106.865]</code>&nbsp; merupakan koordinat dari titik tengah dari peta pada saat pertama di-<em>load</em>. <code>17</code> adalah zoom&nbsp;pada saat pertama di-<em>load.</em></p>
+<p><code>tileLayer</code>&nbsp;merupakan&nbsp;menyimpan peta dasar yang dipakai. Pada parameter pertama &nbsp;menunjukkan penggunaan tiles dari Mapbox. Pada parameter kedua, terdapat beberapa variabel. <code>maxZoom</code> menunjukkan maksimal zoom yang bisa dilakukan. <code>attribution</code> menunjukkan atribut atau keterangan yang tertera pada peta (bawah kanan layar). <code>id</code> merupakan penanda yang disediakan oleh MapBox. Selain <code>mapbox.street</code>, MapBox juga menyediakan pilihan lain (silakan dicoba-coba sesuai dengan kebutuhan), seperti</p>
+<ul>
+ <li><a href="http://api.mapbox.com/v4/mapbox.streets.html?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA#3/0.00/0.00"><code>mapbox.streets</code></a></li>
+ <li><a href="http://api.mapbox.com/v4/mapbox.light.html?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA#3/0.00/0.00"><code>mapbox.light</code></a></li>
+ <li><a href="http://api.mapbox.com/v4/mapbox.dark.html?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA#3/0.00/0.00"><code>mapbox.dark</code></a></li>
+ <li><a href="http://api.mapbox.com/v4/mapbox.satellite.html?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA#3/0.00/0.00"><code>mapbox.satellite</code></a></li>
+ <li><a href="http://api.mapbox.com/v4/mapbox.streets-satellite.html?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA#3/0.00/0.00"><code>mapbox.streets-satellite</code></a></li>
+ <li><a href="http://api.mapbox.com/v4/mapbox.wheatpaste.html?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA#3/0.00/0.00"><code>mapbox.wheatpaste</code></a></li>
+ <li><a href="http://api.mapbox.com/v4/mapbox.streets-basic.html?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA#3/0.00/0.00"><code>mapbox.streets-basic</code></a></li>
+ <li><a href="http://api.mapbox.com/v4/mapbox.comic.html?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA#3/0.00/0.00"><code>mapbox.comic</code></a></li>
+ <li><a href="http://api.mapbox.com/v4/mapbox.outdoors.html?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA#3/0.00/0.00"><code>mapbox.outdoors</code></a></li>
+ <li><a href="http://api.mapbox.com/v4/mapbox.run-bike-hike.html?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA#3/0.00/0.00"><code>mapbox.run-bike-hike</code></a></li>
+ <li><a href="http://api.mapbox.com/v4/mapbox.pencil.html?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA#3/0.00/0.00"><code>mapbox.pencil</code></a></li>
+ <li><a href="http://api.mapbox.com/v4/mapbox.pirates.html?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA#3/0.00/0.00"><code>mapbox.pirates</code></a></li>
+ <li><a href="http://api.mapbox.com/v4/mapbox.emerald.html?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA#3/0.00/0.00"><code>mapbox.emerald</code></a></li>
+ <li><a href="http://api.mapbox.com/v4/mapbox.high-contrast.html?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA#3/0.00/0.00"><code>mapbox.high-contrast</code></a></li>
+</ul>
+<p>addTo(mymap) artinya tileLayer tersebut dimasukkan ke dalam peta yang telah didefinisikan sebelumnya sehingga peta bisa tampil.&nbsp;</p>
+<p>&nbsp;</p>
+<p><em>See you in the next tutorial,</em></p>
+<p><em>Terima kasih, semangat !!!&nbsp;</em></p>
